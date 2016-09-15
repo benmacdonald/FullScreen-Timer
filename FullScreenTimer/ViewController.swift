@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController, iCarouselDataSource, iCarouselDelegate {
     
     var value : Int = 0
-    var timer : NSTimer!
+    var timer : Timer!
     var slidingView : UIView!
     var count = 0
     var labelTimer : Int = 0
@@ -24,35 +24,36 @@ class ViewController: UIViewController, iCarouselDataSource, iCarouselDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
         self.view.backgroundColor = UIColor(netHex:0x364051)
         
-        slidingView = UIView(frame: CGRectMake(0,0,self.view.frame.width,self.view.frame.height))
+        slidingView = UIView(frame: CGRect(x: 0,y: 0,width: self.view.frame.width,height: self.view.frame.height))
         slidingView.backgroundColor = UIColor(netHex: 0xFB6F71)
         
         
         //Setting up countLabel
         countLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
-        countLabel.center = CGPointMake(self.view.center.x, self.view.center.y-50)
-        countLabel.textColor = UIColor.whiteColor()
-        countLabel.textAlignment = .Center
-        countLabel.font = countLabel.font.fontWithSize(95)
+        countLabel.center = CGPoint(x: self.view.center.x, y: self.view.center.y-50)
+        countLabel.textColor = UIColor.white
+        countLabel.textAlignment = .center
+        countLabel.font = countLabel.font.withSize(95)
         
         //Setting up carousel
         
         carousel = iCarousel(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
-        carousel.center = CGPointMake(self.view.center.x, self.view.center.y-50)
+        carousel.center = CGPoint(x: self.view.center.x, y: self.view.center.y-50)
         carousel.dataSource = self
-        carousel.type = .Rotary
-        carousel.scrollToItemAtIndex(3, duration: 0.5)
+        carousel.type = .rotary
+        carousel.scrollToItem(at: 3, duration: 0.5)
         carousel.delegate = self
         
         //Setting up start button
         
         startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        startButton.center = CGPointMake(self.view.center.x, self.view.center.y+250)
+        startButton.center = CGPoint(x: self.view.center.x, y: self.view.center.y+250)
         startButton.layer.cornerRadius = 0.5 * startButton.bounds.size.width
         startButton.backgroundColor = UIColor(netHex: 0xFB6F71)
-        startButton.addTarget(self, action: #selector(startCountDown), forControlEvents: .TouchUpInside)
+        startButton.addTarget(self, action: #selector(startCountDown), for: .touchUpInside)
         
         self.view.addSubview(countLabel)
         self.view.addSubview(slidingView)
@@ -60,8 +61,8 @@ class ViewController: UIViewController, iCarouselDataSource, iCarouselDelegate {
         self.view.addSubview(startButton)
         self.view.addSubview(countLabel)
         
-        countLabel.hidden = true
-        slidingView.hidden = true
+        countLabel.isHidden = true
+        slidingView.isHidden = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,25 +71,25 @@ class ViewController: UIViewController, iCarouselDataSource, iCarouselDelegate {
     }
     func objectReset(){
         startButton = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 80))
-        startButton.center = CGPointMake(self.view.center.x, self.view.center.y+250)
+        startButton.center = CGPoint(x: self.view.center.x, y: self.view.center.y+250)
         startButton.layer.cornerRadius = 0.5 * startButton.bounds.size.width
         startButton.backgroundColor = UIColor(netHex: 0xFB6F71)
-        startButton.addTarget(self, action: #selector(startCountDown), forControlEvents: .TouchUpInside)
+        startButton.addTarget(self, action: #selector(startCountDown), for: .touchUpInside)
         
-        slidingView = UIView(frame: CGRectMake(0,0,self.view.frame.width,self.view.frame.height))
+        slidingView = UIView(frame: CGRect(x: 0,y: 0,width: self.view.frame.width,height: self.view.frame.height))
         slidingView.backgroundColor = UIColor(netHex: 0xFB6F71)
         self.view.addSubview(slidingView)
         self.view.addSubview(startButton)
-        self.view.bringSubviewToFront(countLabel)
+        self.view.bringSubview(toFront: countLabel)
     }
     
     func reset(){
         objectReset()
         
-        countLabel.hidden = true
-        slidingView.hidden = true
-        carousel.hidden = false
-        startButton.hidden = false
+        countLabel.isHidden = true
+        slidingView.isHidden = true
+        carousel.isHidden = false
+        startButton.isHidden = false
     }
     
     func update(){
@@ -104,16 +105,16 @@ class ViewController: UIViewController, iCarouselDataSource, iCarouselDelegate {
         
     }
     
-    func startCountDown(sender: UIButton!){
+    func startCountDown(_ sender: UIButton!){
         let tmp = options[carousel.currentItemIndex]
         countLabel.text = String(tmp)
         value = tmp
         labelTimer = tmp
         
-        UIView.animateWithDuration(2,
+        UIView.animate(withDuration: 2,
             animations: {
-                self.countLabel.hidden = false
-                self.startButton.transform = CGAffineTransformMakeScale(self.view.frame.height, self.view.frame.height)
+                self.countLabel.isHidden = false
+                self.startButton.transform = CGAffineTransform(scaleX: self.view.frame.height, y: self.view.frame.height)
             },
             completion: { finish in
                 self.initializeCountDown(Double(self.value))
@@ -121,37 +122,37 @@ class ViewController: UIViewController, iCarouselDataSource, iCarouselDelegate {
         
     }
     
-    func initializeCountDown(duration : NSTimeInterval){
-        startButton.hidden = true
-        carousel.hidden = true
-        slidingView.hidden = false
+    func initializeCountDown(_ duration : TimeInterval){
+        startButton.isHidden = true
+        carousel.isHidden = true
+        slidingView.isHidden = false
         
         count = 0
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
         
-        UIView.animateWithDuration(duration, animations: {
+        UIView.animate(withDuration: duration, animations: {
             self.slidingView.frame.origin.y += self.view.bounds.height
         })
 
     }
     
-    func numberOfItemsInCarousel(carousel: iCarousel) -> Int {
+    func numberOfItems(in carousel: iCarousel) -> Int {
         return options.count
     }
     
-    func carousel(carousel: iCarousel, viewForItemAtIndex index: Int, reusingView view: UIView?) -> UIView {
+    func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         var view = view
-        var label = UILabel(frame: CGRectMake(0,0,250,250))
+        var label = UILabel(frame: CGRect(x: 0,y: 0,width: 250,height: 250))
         
         if view == nil {
-            view = UIView(frame: CGRectMake(0,0,250,250))
-            view?.contentMode = .Center
+            view = UIView(frame: CGRect(x: 0,y: 0,width: 250,height: 250))
+            view?.contentMode = .center
             view?.backgroundColor = UIColor(netHex: 0x364051)
  
-            label.textColor = UIColor.whiteColor()
-            label.textAlignment = .Center
+            label.textColor = UIColor.white
+            label.textAlignment = .center
             label.tag = 1
-            label.font = label.font.fontWithSize(95)
+            label.font = label.font.withSize(95)
             
             view?.addSubview(label)
             
@@ -162,8 +163,10 @@ class ViewController: UIViewController, iCarouselDataSource, iCarouselDelegate {
         
         return view!
     }
-    override func prefersStatusBarHidden() -> Bool {
-        return true
+    override var prefersStatusBarHidden: Bool {
+        get {
+            return true
+        }
     }
 
 
