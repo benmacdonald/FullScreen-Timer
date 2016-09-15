@@ -14,6 +14,8 @@
 		674EBB711D6BDB4D0088B713 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 674EBB6F1D6BDB4D0088B713 /* LaunchScreen.storyboard */; };
 		674EBB7C1D6BDB4D0088B713 /* FullScreenTimerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EBB7B1D6BDB4D0088B713 /* FullScreenTimerTests.swift */; };
 		674EBB871D6BDB4D0088B713 /* FullScreenTimerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EBB861D6BDB4D0088B713 /* FullScreenTimerUITests.swift */; };
+		674EBB951D6BE6530088B713 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 674EBB941D6BE6530088B713 /* Extensions.swift */; };
+		674EBB991D6BE7FB0088B713 /* iCarousel.m in Sources */ = {isa = PBXBuildFile; fileRef = 674EBB981D6BE7FB0088B713 /* iCarousel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,10 @@
 		674EBB821D6BDB4D0088B713 /* FullScreenTimerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FullScreenTimerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		674EBB861D6BDB4D0088B713 /* FullScreenTimerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenTimerUITests.swift; sourceTree = "<group>"; };
 		674EBB881D6BDB4D0088B713 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		674EBB941D6BE6530088B713 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		674EBB961D6BE7FA0088B713 /* FullScreenTimer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "FullScreenTimer-Bridging-Header.h"; sourceTree = "<group>"; };
+		674EBB971D6BE7FB0088B713 /* iCarousel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iCarousel.h; sourceTree = "<group>"; };
+		674EBB981D6BE7FB0088B713 /* iCarousel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iCarousel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +103,16 @@
 		674EBB651D6BDB4D0088B713 /* FullScreenTimer */ = {
 			isa = PBXGroup;
 			children = (
+				674EBB971D6BE7FB0088B713 /* iCarousel.h */,
+				674EBB981D6BE7FB0088B713 /* iCarousel.m */,
 				674EBB661D6BDB4D0088B713 /* AppDelegate.swift */,
 				674EBB681D6BDB4D0088B713 /* ViewController.swift */,
+				674EBB941D6BE6530088B713 /* Extensions.swift */,
 				674EBB6A1D6BDB4D0088B713 /* Main.storyboard */,
 				674EBB6D1D6BDB4D0088B713 /* Assets.xcassets */,
 				674EBB6F1D6BDB4D0088B713 /* LaunchScreen.storyboard */,
 				674EBB721D6BDB4D0088B713 /* Info.plist */,
+				674EBB961D6BE7FA0088B713 /* FullScreenTimer-Bridging-Header.h */,
 			);
 			path = FullScreenTimer;
 			sourceTree = "<group>";
@@ -257,6 +267,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				674EBB691D6BDB4D0088B713 /* ViewController.swift in Sources */,
+				674EBB991D6BE7FB0088B713 /* iCarousel.m in Sources */,
+				674EBB951D6BE6530088B713 /* Extensions.swift in Sources */,
 				674EBB671D6BDB4D0088B713 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -399,10 +411,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = FullScreenTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bm.FullScreenTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FullScreenTimer/FullScreenTimer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -410,10 +425,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = FullScreenTimer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = bm.FullScreenTimer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "FullScreenTimer/FullScreenTimer-Bridging-Header.h";
 			};
 			name = Release;
 		};
